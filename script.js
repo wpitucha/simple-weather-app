@@ -5,8 +5,8 @@ const apiKey = '0e9ffa29ef7bd2a1ed14725d5878aab9'
 function startApp() {
     if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
-                long = position.coords.latitude
-                lat = position.coords.longitude
+                long = position.coords.longitude
+                lat = position.coords.latitude
                 console.log('long: '+long + ' lat: '+lat)
                 getWeatherData()
             }
