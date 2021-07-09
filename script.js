@@ -2,6 +2,8 @@ let long;
 let lat; 
 const apiKey = '0e9ffa29ef7bd2a1ed14725d5878aab9'
 
+window.addEventListener('keypress', (e) => { if (e.key == "Enter") getDiffrentData()})
+
 function startApp() {
     if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -41,6 +43,16 @@ function updateWeatherData(data) {
 
     document.getElementById('emoji').src = "http://openweathermap.org/img/wn/"+icon+"@2x.png"
     timer(data)
+
+    console.log(weather)
+    if(weather == "Clouds")
+    document.body.style.backgroundImage = 'url(cloud.jpg)'
+    else if (weather == "Rain")
+    document.body.style.backgroundImage = 'url(rain.jpg)'
+    else if (weather == "Mist")
+    document.body.style.backgroundImage = 'url(mist.jpg)'
+    else if (weather == "Clear")
+    document.body.style.backgroundImage = 'url(sunny.jpg)'
 }
 
 function timer(data)
