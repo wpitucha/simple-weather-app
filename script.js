@@ -15,9 +15,8 @@ function startApp() {
 }
 
 function getWeatherData() {
-    let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=metric&appid=${apiKey}`;
-    console.log(url)
-
+    let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=metric&appid=${apiKey}`
+    
     fetch(url).then(function(response) {
         response.json().then(function(data) {
             console.log(data)
@@ -30,28 +29,27 @@ function updateWeatherData(data) {
     let temp = data.main.temp
     let pressure = data.main.pressure
     let humidity = data.main.humidity
-    let country = data.sys.country
     let city = data.name
     let weather = data.weather[0].main
     let icon = data.weather[0].icon
-    let sunRise = new Date(data.sys.sunRise * 1000)
 
     document.getElementById('temp').innerHTML = temp.toFixed(1)
     document.getElementById('pressure').innerHTML = pressure
     document.getElementById('humidity').innerHTML = humidity
-    document.getElementById('search').value = country
+    document.getElementById('search').value = city
     document.getElementById('weather').innerHTML = weather
 
     document.getElementById('emoji').src = "http://openweathermap.org/img/wn/"+icon+"@2x.png"
-    timer()
+    timer(data)
 }
 
-function timer()
+function timer(data)
 {
-    let today = new Date()
+    let today = new Date(data.dt*1000 + (data.timezone*1000))
+    console.log(today)
 
     let day = today.getDay()
-    let date = today.getDate()
+    let dayofm = today.getDate()
     let month = today.getMonth()
     let year = today.getFullYear()
 
@@ -80,13 +78,22 @@ function timer()
     }
 
     document.getElementById('day').innerHTML = day
-    document.getElementById('date').innerHTML=date + ' -'
-    if (date<10) date='0'+date;
+    document.getElementById('date').innerHTML=dayofm + ' -'
     document.getElementById('month').innerHTML=month + ' -'
-    if (month<10) month='0'+month;
     document.getElementById('year').innerHTML=year
-
-    setTimeout(timer(),64000);
 }
+setInterval(timer(),1000);
 
+function getDiffrentData() {
+    let cityname = document.getElementById('search').value
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${cityname}&units=metric&appid=${apiKey}`
+    console.log(cityname)
+    
+    fetch(url).then(function(response) {
+        response.json().then(function(data) {
+            console.log(data)
+            updateWeatherData(data)
+        })
+    })
+}
 

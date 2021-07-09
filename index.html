@@ -14,7 +14,7 @@
     <div class="container">
         <div id='searchDiv'>
             <input type='search' id='search' placeholder="Search other location" onfocus="this.placeholder=''" onblur="this.placeholder='Search other location'">
-            <input type='submit' class='button' value='Submit'>
+            <input type='submit' class='button' value='Submit' onclick="getDiffrentData()">
             <input type='submit' class='button' value='Current Location' onclick="startApp()">
         </div>
 
@@ -24,9 +24,9 @@
         <span id='month'class='date'>Month</span>
         <span id='year'class='date'>Year</span>
         </div>
-        
-    </br></br></br></br></br>
 
+    </br></br></br></br></br>
+        
         <div id='info'>
             <span id='temp'>XX</span>°C</br>
             <span id='pressure'>XX</span> hPa</br>
